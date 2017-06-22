@@ -1,0 +1,8 @@
+{
+  "name": "my-nodejs-codebase-cli",
+  "version": "1.0.0",
+  "main": "bin",
+  "repository": "git@github.com:Matrixbirds/my-nodejs-codebase-cli.git",
+  "author": "liyang <yooobuntu@163.com>",
+  "license": "MIT"
+}

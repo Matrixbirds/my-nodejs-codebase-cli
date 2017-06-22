@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+'use strict';
+
+function list(options) {
+  return new Promise(resolve => {
+    console.log('-------- list -------');
+    console.log('options: ', options);
+    console.log('-------- list -------');
+    resolve();
+  });
+}
+
+function buildOptions(input) {
+  const output = input.join(' ').match(/--(\w+) +(\w+)/g);
+  if (!output) throw new Error("Pattern Missing\n");
+  return output.reduce((obj, option) => {
+    const [_, name, value] = option.match(/--(\w+) +(\w+)/);
+    Object.assign(obj, {
+      [`${name}`]: value
+    });
+    return obj;
+  }, {});
+}
+
+function scp() {
+  console.log('scp');
+}
+
+if (require.main === module) {
+  function argv() {
+    return process.argv.splice(2);
+  }
+  function perform() {
+    const [name, ...options] = argv();
+    cmd({name, options});
+    console.log('done');
+  }
+  function cmd(input) {
+    return command(input);
+  }
+  function emit() {
+  }
+  function command({name, options}) {
+    const names = {
+      list, // TODO: ls as json {'test':'tests', 'lib':'libs'}'list'
+      scp, //TODO: scp interactive
+    };
+    if (typeof names[name] === 'function') return names[name](buildOptions(options));
+  }
+  perform();
+}
